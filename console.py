@@ -133,7 +133,6 @@ class HBNBCommand(cmd.Cmd):
                     value = value[1:-1]
                     value = value.replace('_', ' ')
                     value = value.replace('"', '\\"')
-                    print(f"{key} : {value}")
                 elif '.' in value:
                     try:
                         value = float(value)
@@ -144,7 +143,7 @@ class HBNBCommand(cmd.Cmd):
                         value = int(value)
                     except ValueError:
                         continue
-                new_storage.__dict__.update({key : value})
+                new_storage.__dict__.update({key: value})
         new_storage.save()
 
     def help_create(self):
@@ -340,6 +339,7 @@ class HBNBCommand(cmd.Cmd):
         """ Help information for the update class """
         print("Updates an object with new information")
         print("Usage: update <className> <id> <attName> <attVal>\n")
+
 
 if __name__ == "__main__":
     HBNBCommand().cmdloop()
