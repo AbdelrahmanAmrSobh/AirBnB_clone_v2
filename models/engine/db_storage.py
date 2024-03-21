@@ -27,19 +27,22 @@ class DBStorage:
                                       (username, password, host, dbName),
                                       pool_pre_ping=True)
         if os.getenv('HBNB_ENV') == 'test':
-            metadata = MetaData(bind=self.__engine, reflect=True)
-            metadata.drop_all()
+            Base.metadata.drop_all(self.__engine)
 
     def all(self, cls=None):
         """Select from the current database session"""
+        result = {}
+        classes = {"User": User, "Place": Place, "State": State, "City": City,
+                   "Amenity": Amenity, "Review": Review}
+        objects = []
         if cls:
+            if type(cls) is str:
+                cls = eval(cls)
             objects = self.__session.query(cls).all()
         else:
             objects = []
-            classes = [BaseModel, User, Place, State, City, Amenity, Review]
-            for clas in classes:
-                objects += self.__session.query(clas).all()
-        result = {}
+            for key, value in classes.items():
+                objects.extend(self.__session.query(value).all())
         for obj in objects:
             result[f"{obj.__class__.__name__}.{obj.id}"] = obj
         return result
@@ -56,7 +59,6 @@ class DBStorage:
         """Delete obj if exist"""
         if obj:
             self.__session.delete(obj)
-            self.save()
 
     def reload(self):
         """Create all tables"""
