@@ -4,7 +4,6 @@ from models.base_model import BaseModel, Base
 from models import file_storage_type
 from sqlalchemy import Column, ForeignKey, String
 from sqlalchemy.orm import relationship, backref
-from models.place import Place
 
 
 class City(BaseModel, Base):
@@ -13,6 +12,7 @@ class City(BaseModel, Base):
     if file_storage_type == "db":
         state_id = Column(String(60), ForeignKey('states.id'), nullable=False)
         name = Column(String(128), nullable=False)
+        from models.place import Place
         places = relationship("Place", backref="City")
     else:
         name = ""
