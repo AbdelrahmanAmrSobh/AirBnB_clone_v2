@@ -36,6 +36,8 @@ class BaseModel:
                 del kwargs['__class__']
             except KeyError:
                 pass
+            if 'id' not in kwargs:
+                self.id = str(uuid.uuid4())
             self.__dict__.update(kwargs)
 
     def __str__(self):
