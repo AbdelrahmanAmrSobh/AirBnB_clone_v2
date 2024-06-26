@@ -21,7 +21,7 @@ class HBNBCommand(cmd.Cmd):
     classes = {
                'BaseModel': BaseModel, 'User': User, 'Place': Place,
                'State': State, 'City': City, 'Amenity': Amenity,
-               'Review': Review
+               'Review': Review, "": None
               }
     dot_cmds = ['all', 'count', 'show', 'destroy', 'update']
     types = {
@@ -225,7 +225,7 @@ class HBNBCommand(cmd.Cmd):
             if args not in HBNBCommand.classes:
                 print("** class doesn't exist **")
                 return
-        for v in storage.all(args).values():
+        for v in storage.all(HBNBCommand.classes[args]).values():
             print_list.append(str(v))
 
         print(print_list)
