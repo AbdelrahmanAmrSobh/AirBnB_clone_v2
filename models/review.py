@@ -2,11 +2,10 @@
 """ Review module for the HBNB project """
 from models.base_model import BaseModel, Base
 from models import file_storage_type
-from sqlalchemy import Column, Integer, String, ForeignKey
-from sqlalchemy.orm import relationship, backref
+from sqlalchemy import Column, String, ForeignKey
 
 
-class Review(BaseModel):
+class Review(BaseModel, Base):
     """ Review classto store review information """
     __tablename__ = "reviews"
     if file_storage_type == "db":

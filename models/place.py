@@ -4,10 +4,9 @@ from models.base_model import BaseModel, Base
 from sqlalchemy import Column, String, ForeignKey, Integer, Float
 from sqlalchemy.orm import relationship, backref
 from models import file_storage_type
-from models.review import Review
 
 
-class Place(BaseModel):
+class Place(BaseModel, Base):
     """ A place to stay """
     __tablename__ = "places"
     if file_storage_type == "db":
@@ -39,6 +38,7 @@ class Place(BaseModel):
         def reviews(self):
             """Getter for reviews related to place incase using file"""
             from models import storage
+            from models.review import Review
             review_list = []
             all_reviews = storage.all(Review)
             for review in all_reviews.values():
