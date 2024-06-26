@@ -1,7 +1,7 @@
 #!/usr/bin/python3
 """ State Module for HBNB project """
 from models.base_model import BaseModel, Base
-from models import file_storage_type, storage
+from models import file_storage_type
 from models.city import City
 from sqlalchemy import Column, String
 from sqlalchemy.orm import relationship, backref
@@ -19,6 +19,7 @@ class State(BaseModel, Base):
         @property
         def cities(self):
             """Getter for cities related to state incase using file"""
+            from models import storage
             city_list = []
             all_cities = storage.all(City)
             for city in all_cities.values():
