@@ -12,7 +12,6 @@ class City(BaseModel, Base):
     if file_storage_type == "db":
         state_id = Column(String(60), ForeignKey('states.id'), nullable=False)
         name = Column(String(128), nullable=False)
-        from models.place import Place
         places = relationship("Place", backref="City")
     else:
         name = ""
