@@ -12,6 +12,7 @@ from models import storage, file_storage_type
 import os
 
 
+@unittest.skipIf(file_storage_type == "db", "Uses file")
 class test_fileStorage(unittest.TestCase):
     """ Class to test the file storage method """
 
@@ -36,7 +37,6 @@ class test_fileStorage(unittest.TestCase):
         except:
             pass
 
-    @unittest.skipIf(file_storage_type == "db", "Database could have data from before")
     def test_obj_list_empty(self):
         """ __objects is initially empty """
         self.assertEqual(len(storage.all()), 0)
@@ -65,7 +65,6 @@ class test_fileStorage(unittest.TestCase):
         new = BaseModel()
         self.assertFalse(os.path.exists('file.json'))
 
-    @unittest.skipIf(file_storage_type == "db", "checking file size only work if we are not using database")
     def test_empty(self):
         """ Data is saved to file """
         new = BaseModel()
@@ -74,8 +73,6 @@ class test_fileStorage(unittest.TestCase):
         new2 = BaseModel(**thing)
         self.assertNotEqual(os.path.getsize('file.json'), 0)
 
-
-    @unittest.skipIf(file_storage_type == "db", "File won't be created if we are using database")
     def test_save(self):
         """ FileStorage save method """
         new = BaseModel()
@@ -91,7 +88,6 @@ class test_fileStorage(unittest.TestCase):
             loaded = obj
             self.assertEqual(new.to_dict()['id'], loaded.to_dict()['id'])
 
-    @unittest.skipIf(file_storage_type == "db", "no need to test if we are using database")
     def test_reload_empty(self):
         """ Load from an empty file """
         with open('file.json', 'w') as f:
