@@ -3,6 +3,7 @@
 from tests.test_models.test_base_model import test_basemodel
 from models.state import State
 from models import file_storage_type
+import unittest
 
 class test_state(test_basemodel):
     """ """
@@ -13,7 +14,7 @@ class test_state(test_basemodel):
         self.name = "State"
         self.value = State
 
-    @test_basemodel.unittest.skipIf(file_storage_type == "db", "Type change for database")
+    @unittest.skipIf(file_storage_type == "db", "Type change for database")
     def test_name3(self):
         """ """
         new = self.value()
