@@ -6,7 +6,7 @@ import datetime
 from uuid import UUID
 import json
 import os
-
+from models import file_storage_type
 
 class test_basemodel(unittest.TestCase):
     """ """
@@ -47,6 +47,7 @@ class test_basemodel(unittest.TestCase):
         with self.assertRaises(TypeError):
             new = BaseModel(**copy)
 
+    @unittest.skipIf(file_storage_type == "db", "Uses file")
     def test_save(self):
         """ Testing save """
         i = self.value()
