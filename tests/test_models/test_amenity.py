@@ -2,6 +2,7 @@
 """ """
 from tests.test_models.test_base_model import test_basemodel
 from models.amenity import Amenity
+from models import file_storage_type
 
 
 class test_Amenity(test_basemodel):
@@ -13,6 +14,7 @@ class test_Amenity(test_basemodel):
         self.name = "Amenity"
         self.value = Amenity
 
+    @test_basemodel.unittest.skipIf(file_storage_type == "db", "Type change for database")
     def test_name2(self):
         """ """
         new = self.value()

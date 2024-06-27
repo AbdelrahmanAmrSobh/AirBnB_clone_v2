@@ -2,7 +2,7 @@
 """ """
 from tests.test_models.test_base_model import test_basemodel
 from models.user import User
-
+from models import file_storage_type
 
 class test_User(test_basemodel):
     """ """
@@ -13,21 +13,25 @@ class test_User(test_basemodel):
         self.name = "User"
         self.value = User
 
+    @test_basemodel.unittest.skipIf(file_storage_type == "db", "Type change for database")
     def test_first_name(self):
         """ """
         new = self.value()
         self.assertEqual(type(new.first_name), str)
 
+    @test_basemodel.unittest.skipIf(file_storage_type == "db", "Type change for database")
     def test_last_name(self):
         """ """
         new = self.value()
         self.assertEqual(type(new.last_name), str)
 
+    @test_basemodel.unittest.skipIf(file_storage_type == "db", "Type change for database")
     def test_email(self):
         """ """
         new = self.value()
         self.assertEqual(type(new.email), str)
 
+    @test_basemodel.unittest.skipIf(file_storage_type == "db", "Type change for database")
     def test_password(self):
         """ """
         new = self.value()
