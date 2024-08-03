@@ -2,8 +2,8 @@
 # Script that prepares web servers for the deployment of web_static.
 
 # Update and install nginx if it is not already installed
-sudo apt-get update -y 2>&1 > /dev/null
-sudo apt-get install nginx -y 2>&1 > /dev/null
+sudo apt-get update -y > /dev/null
+sudo apt-get install nginx -y > /dev/null
 
 # Create necessary directories
 sudo mkdir -p /data/web_static/releases/test/ /data/web_static/shared/
@@ -15,7 +15,7 @@ echo 'hElLo, WoRlD' | sudo tee /data/web_static/releases/test/index.html > /dev/
 ln -sf /data/web_static/releases/test /data/web_static/current
 
 # Change ownership of the /data/ folder recursively to the ubuntu user and group
-sudo chown -R ubuntu:ubuntu /data/ 2>&1 > /dev/null
+sudo chown -R ubuntu:ubuntu /data/ > /dev/null
 
 # Define the Nginx location block to handle /hbnb_static requests
 new_block="\tlocation /hbnb_static/ {\n\t\talias /data/web_static/current/;\n\t}"
@@ -32,5 +32,4 @@ sudo sed -i "/${marker}/i\\$new_block\n" /etc/nginx/sites-available/default
 sudo sed -i "/${marker}/d" /etc/nginx/sites-available/default
 
 # Restart Nginx to apply the changes
-sudo service nginx restart 2>&1 > /dev/null
-
+sudo service nginx restart > /dev/null
