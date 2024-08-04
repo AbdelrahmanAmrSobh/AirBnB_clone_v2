@@ -15,5 +15,7 @@ def do_pack():
                + datetime.now().strftime("%Y%m%d%H%M%S") + ".tgz"
     if isdir("versions") is False:
         local("mkdir versions")
-    local(f"tar -cvzf {fileName} web_static")
-    return fileName
+    create = local(f"tar -cvzf {fileName} web_static")
+    if create is not None:
+        return fileName
+    return None
