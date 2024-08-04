@@ -2,10 +2,7 @@
 # Fabfile to distribute an archive to a web server.
 from fabric.api import put, env, run
 from os.path import exists
-
-env.hosts = ["web-01.abdelrahmanamr.tech", "web-02.abdelrahmanamr.tech"]
-env.user = 'ubuntu'
-env.key_filename = '~/.ssh/school'
+env.hosts = ["100.25.41.166", "52.91.118.146"]
 
 
 def do_deploy(archive_path):
